@@ -247,6 +247,9 @@ void ofxFBOTexture::allocate(int w, int h, int internalGlDataType, int numSample
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, oldFramebuffer);
 	
 #endif	
+
+	imageSaver.setUseTexture(false);
+	imageSaver.allocate(texData.width, texData.height, OF_IMAGE_COLOR_ALPHA);
 	
 	
 	texData.bAllocated = true;
@@ -491,3 +494,9 @@ void ofxFBOTexture::supportCheck(){
 	}
 }
 
+
+void ofxFBOTexture::saveImage(string fileName){
+	glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
+	glReadPixels(0, 0, texData.width, texData.height, texData.glType, GL_UNSIGNED_BYTE, imageSaver.getPixels());
+	imageSaver.saveImage(fileName);
+}

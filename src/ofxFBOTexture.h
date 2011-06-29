@@ -40,6 +40,7 @@
 
 
 #include "ofMain.h"
+#include "ofxThreadedImageSaver.h"
 
 class ofxFBOTexture : public ofTexture {
 public:
@@ -58,6 +59,8 @@ public:
 	void bindAsTexture();
 	
 	void *getPixels();
+
+	void saveImage(string fileName);
 
 	
 //protected:
@@ -93,4 +96,6 @@ public:
 	static GLint maxTextureSize;
 	static GLint maxRenderBufferSize;
 	static GLint maxSamples;
+
+	ofxThreadedImageSaver	imageSaver;
 };
