@@ -496,7 +496,25 @@ void ofxFBOTexture::supportCheck(){
 
 
 void ofxFBOTexture::saveImage(string fileName){
-	glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
-	glReadPixels(0, 0, texData.width, texData.height, texData.glType, GL_UNSIGNED_BYTE, imageSaver.getPixels());
+	bool alreadyIn = _isActive;
+	if(!alreadyIn) begin();
+
+	//glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
+	//glReadPixels(0, 0, texData.width, texData.height, texData.glType, GL_UNSIGNED_BYTE, imageSaver.getPixels());
+	imageSaver.grabScreen(0, 0, imageSaver.width, imageSaver.height);
 	imageSaver.saveImage(fileName);
+
+	if(!alreadyIn) end();
+}
+
+void ofxFBOTexture::saveImageThreaded(string fileName){
+	bool alreadyIn = _isActive;
+	if(!alreadyIn) begin();
+
+	//glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
+	//glReadPixels(0, 0, texData.width, texData.height, texData.glType, GL_UNSIGNED_BYTE, imageSaver.getPixels());
+	imageSaver.grabScreen(0, 0, imageSaver.width, imageSaver.height);
+	imageSaver.saveThreaded(fileName);
+
+	if(!alreadyIn) end();
 }

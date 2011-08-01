@@ -61,6 +61,7 @@ public:
 	void *getPixels();
 
 	void saveImage(string fileName);
+	void saveImageThreaded(string fileName);
 
 	
 //protected:
